@@ -13,7 +13,7 @@ const LOGIN = gql`
     }
   }
 `;
-
+//Login validation
 export default function Login({ setPage }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
