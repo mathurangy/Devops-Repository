@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports = (req) => {
   const token = req.headers.authorization || "";
-
+//Login feature added
   if (!token) return null;
 
   try {
