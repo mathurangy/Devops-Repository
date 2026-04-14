@@ -9,7 +9,7 @@ import Navbar from "./components/Navbar";
 function App() {
   const [page, setPage] = useState("home");
 
-  
+  //Fix API timeout issue
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
