@@ -1,99 +1,80 @@
 pipeline {
     agent any
 
-    environment {
-        NODE_VERSION = '18'
-    }
-
     stages {
 
-        
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/mathurangy/Devops-Repository.git'
             }
         }
 
-       
         stage('Install Backend') {
             steps {
-                dir('backend') {
-                    sh 'npm install'
+                dir('DaycareWaitlist/backend') {
+                    bat 'npm install'
                 }
             }
         }
 
-      
         stage('Install Frontend') {
             steps {
-                dir('frontend') {
-                    sh 'npm install'
+                dir('DaycareWaitlist/frontend') {
+                    bat 'npm install'
                 }
             }
         }
 
-    
         stage('Build') {
             steps {
-                dir('frontend') {
-                    sh 'npm run build || echo "No build step"'
+                dir('DaycareWaitlist/frontend') {
+                    bat 'npm run build || echo No build step'
                 }
             }
         }
 
-    
         stage('Test') {
             steps {
-                dir('backend') {
-                    sh 'npm test || echo "No tests found"'
+                dir('DaycareWaitlist/backend') {
+                    bat 'npm test || echo No tests found'
                 }
             }
         }
-
 
         stage('SonarQube Analysis') {
             steps {
-                echo 'Running static code analysis (mock SonarQube)...'
+                bat 'echo Running static code analysis (mock SonarQube)...'
             }
         }
 
-      
         stage('Deliver') {
             steps {
-                echo 'Packaging application...'
-                sh 'tar -czf app.tar.gz backend frontend'
+                bat 'echo Packaging application...'
+                bat 'tar -czf app.tar.gz DaycareWaitlist\\backend DaycareWaitlist\\frontend'
             }
         }
 
-        
         stage('Deploy to Dev') {
             steps {
-                echo 'Deploying to DEV...'
-                sh 'echo "App deployed to DEV environment"'
+                bat 'echo Deploying to DEV environment...'
             }
         }
 
-      
         stage('Deploy to QAT') {
             steps {
-                echo 'Deploying to QAT...'
-                sh 'echo "App deployed to QAT environment"'
+                bat 'echo Deploying to QAT environment...'
             }
         }
-
 
         stage('Deploy to Staging') {
             steps {
-                echo 'Deploying to STAGING...'
-                sh 'echo "App deployed to STAGING environment"'
+                bat 'echo Deploying to STAGING environment...'
             }
         }
 
-        
         stage('Deploy to Production') {
             steps {
-                echo 'Deploying to PRODUCTION...'
-                sh 'echo "App deployed to PRODUCTION environment"'
+                bat 'echo Deploying to PRODUCTION environment...'
             }
         }
     }
